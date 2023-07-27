@@ -5,22 +5,14 @@ import com.bnb.config.WatermarkConfig;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
-import javafx.fxml.Initializable;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * @Description: PDF增加水印工具类
  */
-public class PDFAddWatermarkController implements Initializable {
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+public class PDFAddWatermarkController {
 
     /**
      * 给PDF添加水印
