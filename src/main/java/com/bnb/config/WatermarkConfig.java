@@ -7,25 +7,21 @@ public class WatermarkConfig {
     /**
      * 水印的高度
      */
-//    @Value(("${watermark.watermarkHeight}"))
     private Integer watermarkHeight;
 
     /**
      * 水印的宽度
      */
-//    @Value(("${watermark.watermarkWeight}"))
     private Integer watermarkWeight;
 
     /**
      * 水印间隔距离
      */
-//    @Value(("${watermark.watermarkInterval}"))
     private Integer watermarkInterval;
 
     /**
      * 填充透明度
      */
-//    @Value(("${watermark.waterMarkInterval}"))
     private Float fillOpacity;
 
     /**
