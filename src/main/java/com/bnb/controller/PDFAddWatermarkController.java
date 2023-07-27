@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Scanner;
 
 /**
  * @Description: PDF增加水印工具类
@@ -94,10 +95,10 @@ public class PDFAddWatermarkController {
                 for (String watermarkContent : watermarkContents) {
                     File outputFile = new File(keyConfig.getOutputFilePath() + "\\" + watermarkContent);
                     if (!outputFile.exists()) {
-                        outputFile.mkdir();
+                        outputFile.mkdirs();
                     }
-                    pdfAddWaterMark(keyConfig.getInputFilePath(),
-                            outputFile.getPath() + fileName,
+                    pdfAddWaterMark(inputFile.getPath(),
+                            outputFile.getPath() + "\\" + fileName,
                             watermarkContent, watermarkConfig);
                 }
             } else {
@@ -110,7 +111,7 @@ public class PDFAddWatermarkController {
                     for (String watermarkContent : watermarkContents) {
                         File outputFile = new File(keyConfig.getOutputFilePath() + "\\" + watermarkContent);
                         if (!outputFile.exists()) {
-                            outputFile.mkdir();
+                            outputFile.mkdirs();
                         }
                         pdfAddWaterMark(file.getPath(),
                                 outputFile.getPath() + "\\" + fileName,
@@ -124,20 +125,32 @@ public class PDFAddWatermarkController {
     }
 
     public static void main(String[] args) {
-        String[] strs = new String[]{"银行", "ABCD", "XYZ","信托","仅供内部使用"};
+
         KeyConfig keyConfig = new KeyConfig();
-        keyConfig.setInputFilePath("D:\\test");
-        keyConfig.setOutputFilePath("D:\\test\\result");
-        keyConfig.setWatermarkContents(strs);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("输入PDF文件夹或PDF文件地址：");
+        keyConfig.setInputFilePath(scanner.next());
+        System.out.println("输入生产文件地址：");
+        keyConfig.setOutputFilePath(scanner.next());
+        System.out.println("输入水印文字（使用”-“分隔）：");
+        String[] contents = scanner.next().split("-");
+        keyConfig.setWatermarkContents(contents);
 
         WatermarkConfig watermarkConfig = new WatermarkConfig();
-        watermarkConfig.setWatermarkHeight(50);
-        watermarkConfig.setWatermarkWeight(100);
-        watermarkConfig.setWatermarkInterval(150);
-        watermarkConfig.setFillOpacity(0.2f);
-        watermarkConfig.setStrokeOpacity(0.4f);
-        watermarkConfig.setSize(30f);
-        watermarkConfig.setRotation(30f);
+        System.out.println("输入水印高度（50）");
+        watermarkConfig.setWatermarkHeight(scanner.nextInt());
+        System.out.println("输入水印宽度（50）");
+        watermarkConfig.setWatermarkWeight(scanner.nextInt());
+        System.out.println("输入水印间隔距离（范围：100-1000，推荐250）");
+        watermarkConfig.setWatermarkInterval(scanner.nextInt());
+        System.out.println("输入水印填充透明度（范围：0.0-1.0，推荐0.2）");
+        watermarkConfig.setFillOpacity(scanner.nextFloat());
+        System.out.println("输入水印轮廓不透明度(0.4)");
+        watermarkConfig.setStrokeOpacity(scanner.nextFloat());
+        System.out.println("输入水印字体大小(范围10-100，推荐30)");
+        watermarkConfig.setSize(scanner.nextFloat());
+        System.out.println("输入水印旋转角度(0-360)");
+        watermarkConfig.setRotation(scanner.nextFloat());
         pdfAddWatermarkBatch(keyConfig, watermarkConfig);
     }
 }
